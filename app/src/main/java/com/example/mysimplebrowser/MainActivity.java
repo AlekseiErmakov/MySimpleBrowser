@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         addText();
         addButton();
 
+
     }
     public void addWebView(){
         web = (WebView)findViewById(R.id.webview);
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         ws.setJavaScriptEnabled(true);
         ws.setDomStorageEnabled(true);
         web.setWebViewClient(new WebViewClient());
+
 
     }
     public void onBackPressed(){
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addButton(){
        GoToWeb = (Button)findViewById(R.id.go);
+       web.loadUrl("http:/google.com");
+
        GoToWeb.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -100,6 +104,17 @@ public class MainActivity extends AppCompatActivity {
             spisok.add("pikabu.ru/");
             spisok.add("javarush.ru/");
             spisok.add("uralairlines.ru/");
+            spisok.add("livelib.ru/");
+            spisok.add("booking.com/");
+            spisok.add("skyscanner.ru/");
+            spisok.add("avito.ru/");
+            spisok.add("ula.ru/");
+            spisok.add("2gis.ru/");
+            spisok.add("habr.com/");
+            spisok.add("stackoverflow.com/");
+            spisok.add("reddit.com/");
+            spisok.add("twitch.com/");
+            spisok.add("fb.com/");
 
         }
     }
