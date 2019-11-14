@@ -9,18 +9,22 @@ import android.view.inputmethod.EditorInfo;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    WebView web;
-    AutoCompleteTextView TextView;
-    Button GoToWeb;
-    WebSettings ws;
+    private WebView web;
+    private AutoCompleteTextView TextView;
+    private Button GoToWeb;
+    private WebSettings ws;
+    private ArrayAdapter adapter;
+    private final static String URLstart ="http:/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ws.setJavaScriptEnabled(true);
         ws.setDomStorageEnabled(true);
         web.setWebViewClient(new WebViewClient());
+
     }
     public void onBackPressed(){
         if (web.canGoBack())
@@ -56,42 +61,45 @@ public class MainActivity extends AppCompatActivity {
     }
     public void goToWebsite(){
         String url = String.valueOf(TextView.getText());
-        System.out.println(url);
-        web.loadUrl(url);
+
+        web.loadUrl(URLstart+url);
     }
     public void addText(){
         TextView = (AutoCompleteTextView)findViewById(R.id.textV);
 
-        TextView.setOnEditorActionListener( new android.widget.TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_NULL
-                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    goToWebsite();//match this behavior to your 'Send' (or Confirm) button
+        TextView.setOnEditorActionListener(new EditText.OnEditorActionListener()
+        {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+            {
+                if (actionId == EditorInfo.IME_ACTION_DONE)
+                {
+                   goToWebsite();
+                    return true;
                 }
-                return true;
+                return false;
             }
-    });
+
+        });
+        adapter=new ArrayAdapter(this,android.R.layout.select_dialog_item,DataBaseSites.spisok);
+        TextView.setThreshold(2);
+        TextView.setAdapter(adapter);
+
     }
-
-
-
-
-
-
 
     public static class DataBaseSites{
         public static ArrayList<String> spisok = new ArrayList<>();
         public static void addToSpisok(){
-            spisok.add("http://vk.com/");
-            spisok.add("http://yandex.ru/");
-            spisok.add("http://google.com/");
-            spisok.add("http://mail.ru/");
-            spisok.add("http://hh.ru/");
-            spisok.add("http://youtube.com/");
-            spisok.add("http://matchtv.ru/");
-            spisok.add("http://pikabu.ru/");
-            spisok.add("http://javarush.ru/");
-            spisok.add("https://www.uralairlines.ru/");
+            spisok.add("vk.com/");
+            spisok.add("yandex.ru/");
+            spisok.add("google.com/");
+            spisok.add("mail.ru/");
+            spisok.add("hh.ru/");
+            spisok.add("youtube.com/");
+            spisok.add("matchtv.ru/");
+            spisok.add("pikabu.ru/");
+            spisok.add("javarush.ru/");
+            spisok.add("uralairlines.ru/");
 
         }
     }

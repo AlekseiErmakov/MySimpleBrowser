@@ -27,6 +27,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/fields"
                 app:layout_constraintStart_toStartOf="parent"
+                android:inputType="text"
                 android:imeOptions="actionDone" />
 
             <Button
